@@ -58,9 +58,15 @@ show() {
 	psql $DATABASE_URL -c "SELECT * FROM migrations;"
 }
 
+# Connects to the database url
+connect() {
+	psql $DATABASE_URL
+}
+
 case "$1" in
 migrate) migrate ;;
 reset) reset ;;
 show) show ;;
-*) echo "usage './manage.sh <migrate|reset>'" ;;
+connect) connect ;;
+*) echo "usage './manage.sh <migrate|reset|connect>'" ;;
 esac

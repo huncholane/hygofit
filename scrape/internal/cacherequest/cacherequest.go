@@ -9,6 +9,8 @@ import (
 
 func CacheGetRequest(endpoint string) ([]byte, error) {
 	filename := strings.ReplaceAll(endpoint, "/", "_")
+	filename = strings.ReplaceAll(filename, "?", "_")
+	filename = strings.ReplaceAll(filename, "=", "_")
 	content, err := cache.ReadCacheFile(filename)
 	if err != nil {
 		content, err = request.Request(endpoint)

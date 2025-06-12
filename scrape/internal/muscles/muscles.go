@@ -18,13 +18,13 @@ func (m Muscle) TupleStr() string {
 }
 
 type MuscleMan struct {
-	muscles []Muscle
+	Muscles []Muscle
 }
 
 func (mm MuscleMan) SqlStatement() string {
 	sql := "INSERT INTO muscle (name,url) VALUES "
-	for i, m := range mm.muscles {
-		if i == len(mm.muscles)-1 {
+	for i, m := range mm.Muscles {
+		if i == len(mm.Muscles)-1 {
 			sql = fmt.Sprintf("%s,%s;", sql, m.TupleStr())
 		} else {
 			sql = fmt.Sprintf("%s,%s", sql, m.TupleStr())
@@ -48,7 +48,7 @@ func ScrapeMuscles() (MuscleMan, error) {
 	}
 
 	for _, match := range matches {
-		mm.muscles = append(mm.muscles, Muscle{settings.RootUrl + match[1], match[2]})
+		mm.Muscles = append(mm.Muscles, Muscle{settings.RootUrl + match[1], match[2]})
 	}
 	return mm, nil
 }
