@@ -3,6 +3,7 @@ package muscles
 import (
 	"fmt"
 	"regexp"
+	"strings"
 
 	"github.com/huncholane/hygofit-scrape/internal/cacherequest"
 	"github.com/huncholane/hygofit-scrape/internal/settings"
@@ -25,9 +26,9 @@ func (mm MuscleMan) SqlStatement() string {
 	sql := "INSERT INTO muscle (name,url) VALUES "
 	for i, m := range mm.Muscles {
 		if i == len(mm.Muscles)-1 {
-			sql = fmt.Sprintf("%s,%s;", sql, m.TupleStr())
+			sql = fmt.Sprintf("%s%s;", sql, m.TupleStr())
 		} else {
-			sql = fmt.Sprintf("%s,%s", sql, m.TupleStr())
+			sql = fmt.Sprintf("%s%s,", sql, m.TupleStr())
 		}
 	}
 	return sql
@@ -40,7 +41,7 @@ func ScrapeMuscles() (MuscleMan, error) {
 		return mm, err
 	}
 
-	re := regexp.MustCompile(`(?s)<a href="([^"]+)".*?<div class="category-name">([^<]+)</div>`)
+	re := regexp.MustCompile(`(?s)<a href="([^"]+)">.*?\n *<div class="category-name">([^<]+)</div>`)
 	matches := re.FindAllStringSubmatch(string(body), -1)
 
 	if len(matches) == 0 {
@@ -48,7 +49,12 @@ func ScrapeMuscles() (MuscleMan, error) {
 	}
 
 	for _, match := range matches {
-		mm.Muscles = append(mm.Muscles, Muscle{settings.RootUrl + match[1], match[2]})
+		if strings.Contains(match[1], "barbell") {
+			return mm, nil
+		}
+		if strings.Contains(match[1], "exercise") {
+			mm.Muscles = append(mm.Muscles, Muscle{Url: settings.RootUrl + match[1], Name: match[2]})
+		}
 	}
 	return mm, nil
 }

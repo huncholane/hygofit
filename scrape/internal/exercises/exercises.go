@@ -22,6 +22,16 @@ type ExerciseMan struct {
 	Exercises []Exercise
 }
 
+func ScrapeMusclePage(content string) []Exercise {
+	e := []Exercise{}
+	re := regexp.MustCompile(`(?s)<label>Type</label>\n\s+(.*?)\s+</div>.*?Equipment.*?\n\s+(.*?)\s+</div>.*?Mechanics.*?\n\s+(.*?)\s+</div>.*?Exp. Level.*?\n\s+(.*?)\s+</div>.*?<a href="(.*?)" alt="(.*?)"`)
+	matches := re.FindAllStringSubmatch(content, -1)
+	for _, m := range matches {
+		println(m[5])
+	}
+	return e
+}
+
 func ScrapeExercises() (ExerciseMan, error) {
 	em := ExerciseMan{}
 	mm, err := muscles.ScrapeMuscles()
@@ -33,16 +43,17 @@ func ScrapeExercises() (ExerciseMan, error) {
 		if err != nil {
 			continue
 		}
-		println("Checking out ", parsed.Path, muscle.Url)
 		content, err := cacherequest.CacheGetRequest(parsed.Path)
 		if err != nil {
 			continue
 		}
-		re := regexp.MustCompile(`(?s)pager-item.*?(\d)</a>`)
-		matches := re.FindAllStringSubmatch(string(content), -1)
-		for _, m := range matches {
-			println(muscle.Name, m[1])
-		}
+		ScrapeMusclePage(string(content))
+		// re := regexp.MustCompile(`(?s)pager-item.*?(\d)</a>`)
+		// matches := re.FindAllStringSubmatch(string(content), -1)
+		// final := 2
+		// if len(matches) > 1 {
+		// 	final, _ = strconv.Atoi(matches[len(matches)-1][1])
+		// }
 	}
 	return em, nil
 }

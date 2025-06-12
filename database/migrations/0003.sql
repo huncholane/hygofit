@@ -1,1 +1,5 @@
+BEGIN;
+
 ALTER TABLE exercise ADD COLUMN views int DEFAULT 0;
+
+COMMIT;

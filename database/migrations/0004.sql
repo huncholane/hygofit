@@ -1,0 +1,7 @@
+BEGIN;
+
+DELETE FROM muscle;
+
+INSERT INTO muscle (name,url) VALUES ('Abs', 'https://www.muscleandstrength.com/exercises/abs'),('Adductors', 'https://www.muscleandstrength.com/exercises/adductors.html'),('Biceps', 'https://www.muscleandstrength.com/exercises/biceps'),('Calves', 'https://www.muscleandstrength.com/exercises/calves'),('Chest', 'https://www.muscleandstrength.com/exercises/chest'),('Forearms', 'https://www.muscleandstrength.com/exercises/forearms'),('Glutes', 'https://www.muscleandstrength.com/exercises/glutes'),('Hamstrings', 'https://www.muscleandstrength.com/exercises/hamstrings'),('Hip Flexors', 'https://www.muscleandstrength.com/exercises/hip-flexors'),('IT Band', 'https://www.muscleandstrength.com/exercises/it-band'),('Lats', 'https://www.muscleandstrength.com/exercises/lats'),('Lower Back', 'https://www.muscleandstrength.com/exercises/lower-back'),('Upper Back', 'https://www.muscleandstrength.com/exercises/middle-back'),('Neck', 'https://www.muscleandstrength.com/exercises/neck.html'),('Obliques', 'https://www.muscleandstrength.com/exercises/obliques'),('Palmar Fascia', 'https://www.muscleandstrength.com/exercises/palmar-fascia'),('Plantar Fascia', 'https://www.muscleandstrength.com/exercises/plantar-fascia'),('Quads', 'https://www.muscleandstrength.com/exercises/quads'),('Shoulders', 'https://www.muscleandstrength.com/exercises/shoulders'),('Traps', 'https://www.muscleandstrength.com/exercises/traps'),('Triceps', 'https://www.muscleandstrength.com/exercises/triceps');
+
+COMMIT;
