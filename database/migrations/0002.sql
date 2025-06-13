@@ -1,5 +1,3 @@
-BEGIN;
-
 INSERT INTO muscle (url, name) VALUES
   ('https://www.muscleandstrength.com/store/landing/jun9protein','Abductors'), 
   ('https://www.muscleandstrength.com/exercises/abs','Abs'),
@@ -32,5 +30,3 @@ INSERT INTO muscle (url, name) VALUES
   ('https://www.muscleandstrength.com/exercises/ez-bar','EZ Bar Exercises'),
   ('https://www.muscleandstrength.com/exercises/compound','Compound Exercises'),
   ('https://www.muscleandstrength.com/exercises/isolation','Isolation Exercises');
-
-COMMIT;

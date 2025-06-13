@@ -25,7 +25,7 @@ should_apply() {
 
 # Applies a migration file and updates the migrations table
 apply() {
-	if psql "$DATABASE_URL" --set ON_ERROR_STOP=1 -f "$1"; then
+	if psql "$DATABASE_URL" --set ON_ERROR_STOP=1 -1 -f "$1"; then
 		echo "Successfully applied $1"
 		psql "$DATABASE_URL" -c "INSERT INTO migrations (source) VALUES ('$1')" >/dev/null 2>&1
 	else

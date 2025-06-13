@@ -27,9 +27,10 @@ func (e *Exercise) GetViews() int {
 	views := 0
 	if len(match) == 3 {
 		f, _ := strconv.ParseFloat(match[1], 32)
-		if match[2] == "K" {
+		switch match[2] {
+		case "K":
 			views = int(f * 1000)
-		} else if match[2] == "M" {
+		case "M":
 			views = int(f * 1000000)
 		}
 	}
@@ -154,7 +155,8 @@ func ScrapeExercises() (ExerciseMan, error) {
 			final, _ = strconv.Atoi(matches[len(matches)-1][1])
 		}
 		for i := 2; i <= final; i++ {
-			content, err := cacherequest.CacheGetRequest(fmt.Sprintf("%s?page=%d", parsed.Path, i))
+			endpoint := fmt.Sprintf("%s?page=%d", parsed.Path, i-1)
+			content, err := cacherequest.CacheGetRequest(endpoint)
 			if err != nil {
 				continue
 			}
