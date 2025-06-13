@@ -1,11 +1,15 @@
 package main
 
 import (
-	"github.com/huncholane/hygofit-scrape/internal/exercises"
+	"fmt"
+
+	"github.com/huncholane/hygofit-scrape/internal/models"
 	"github.com/joho/godotenv"
 )
 
 func main() {
 	godotenv.Load()
-	exercises.ScrapeExercises()
+	em, _ := models.ScrapeExercises()
+	// models.ScrapeExercises()
+	fmt.Println(em.InsertStatement())
 }

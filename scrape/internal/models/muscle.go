@@ -1,4 +1,4 @@
-package muscles
+package models
 
 import (
 	"fmt"
