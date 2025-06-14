@@ -41,7 +41,7 @@ func (ob OrderBy) SqlStmt() string {
 	for _, field := range ob.Fields {
 		stmt += fmt.Sprintf("%s %s,", field.Field, field.Dir)
 	}
-	return stmt[:len(ob.Fields)-1]
+	return stmt[:len(stmt)-1]
 }
 
 func (ob *OrderBy) Append(field OrderByField) {
@@ -74,6 +74,25 @@ func QueryOrderBy(c *gin.Context, allowed_fields map[string]struct{}, def string
 	return OrderByFromString(allowed_fields, c.Query("order_by"))
 }
 
+func QuerySearchIn(c *gin.Context, prefix, db_field, query_field, def string) string {
+	s := c.Query(query_field)
+	if s == "" {
+		s = def
+	}
+	if s == "all" {
+		return ""
+	}
+	vals := strings.Split(s, ",")
+
+	// Prevent SQL injection by escaping single quotes
+	for i, v := range vals {
+		vals[i] = "'" + strings.ReplaceAll(v, "'", "''") + "'"
+	}
+
+	stmt := fmt.Sprintf("%s %s IN (%s)", prefix, db_field, strings.Join(vals, ", "))
+	return stmt
+}
+
 type Exercise struct {
 	ID         int    `db:"id"`
 	Name       string `db:"name"`
@@ -101,6 +120,12 @@ var ExerciseFieldSet = map[string]struct{}{
 func GetExercises(c *gin.Context) {
 	limit, _ := QueryInt(c, "limit", 50)
 	min_views, _ := QueryInt(c, "min_views", 1000000)
+	order_by := QueryOrderBy(c, ExerciseFieldSet, "-views")
+	target := QuerySearchIn(c, "AND", "muscle.name", "target", "all")
+	focus := QuerySearchIn(c, "AND", "focus.name", "focus", "all")
+	equipment := QuerySearchIn(c, "AND", "equipment.name", "equipment", "all")
+	force := QuerySearchIn(c, "AND", "force.name", "force", "all")
+	experience := QuerySearchIn(c, "AND", "experience.name", "experience", "all")
 
 	var exercises []Exercise
 
@@ -121,6 +146,12 @@ func GetExercises(c *gin.Context) {
 		LEFT JOIN force ON exercise.force_id=force.id
 		LEFT JOIN experience ON exercise.experience_id=experience.id
 		WHERE views>=$1
+		`+target+`
+		`+focus+`
+		`+equipment+`
+		`+force+`
+		`+experience+`
+		`+order_by.SqlStmt()+`
 		LIMIT $2
 		;`, min_views, limit)
 	if err != nil {
