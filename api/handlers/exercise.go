@@ -74,7 +74,7 @@ func QueryOrderBy(c *gin.Context, allowed_fields map[string]struct{}, def string
 	return OrderByFromString(allowed_fields, c.Query("order_by"))
 }
 
-func QuerySearchIn(c *gin.Context, prefix, db_field, query_field, def string) string {
+func QueryInToSql(c *gin.Context, prefix, db_field, query_field, def string) string {
 	s := c.Query(query_field)
 	if s == "" {
 		s = def
@@ -121,11 +121,11 @@ func GetExercises(c *gin.Context) {
 	limit, _ := QueryInt(c, "limit", 50)
 	min_views, _ := QueryInt(c, "min_views", 1000000)
 	order_by := QueryOrderBy(c, ExerciseFieldSet, "-views")
-	target := QuerySearchIn(c, "AND", "muscle.name", "target", "all")
-	focus := QuerySearchIn(c, "AND", "focus.name", "focus", "all")
-	equipment := QuerySearchIn(c, "AND", "equipment.name", "equipment", "all")
-	force := QuerySearchIn(c, "AND", "force.name", "force", "all")
-	experience := QuerySearchIn(c, "AND", "experience.name", "experience", "all")
+	target := QueryInToSql(c, "AND", "muscle.name", "target", "all")
+	focus := QueryInToSql(c, "AND", "focus.name", "focus", "all")
+	equipment := QueryInToSql(c, "AND", "equipment.name", "equipment", "all")
+	force := QueryInToSql(c, "AND", "force.name", "force", "all")
+	experience := QueryInToSql(c, "AND", "experience.name", "experience", "all")
 
 	var exercises []Exercise
 
