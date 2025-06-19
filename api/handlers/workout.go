@@ -6,48 +6,33 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/huncholane/golib/querytools"
 	"github.com/huncholane/hygofit/api/globals"
-	_ "github.com/lib/pq"
 )
 
-type Exercise struct {
-	ID         int    `db:"id" json:"id"`
-	Name       string `db:"name" json:"name"`
-	Target     string `db:"target" json:"target"`
-	Focus      string `db:"focus" json:"focus"`
-	Equipment  string `db:"equipment" json:"equipment"`
-	Force      string `db:"force" json:"force"`
-	Experience string `db:"experience" json:"experience"`
-	Views      int    `db:"views" json:"views"`
-	Url        string `db:"url" json:"url"`
+type BlockExercise struct {
+	Exercise
+	Quantity int    `json:"quantity"`
+	Unit     string `json:"unit"`
 }
 
-type Exercises []Exercise
+type Block struct {
+	Exercises []BlockExercise
+}
 
-func (e Exercises) TargetMap() map[string][]Exercise {
-	exerciseMap := make(map[string][]Exercise)
+type Workout struct {
+	Blocks []Block
+}
 
-	for _, e := range e {
-		exerciseMap[e.Target] = append(exerciseMap[e.Target], e)
+func WorkoutFromExercises(exercises Exercises, blockspertarget, minblocksize int) {
+	target_map := exercises.TargetMap()
+	for target, vals := range target_map {
 	}
-	return exerciseMap
 }
 
-var ExerciseFieldSet = map[string]struct{}{
-	"id":         {},
-	"name":       {},
-	"target":     {},
-	"focus":      {},
-	"equipment":  {},
-	"force":      {},
-	"experience": {},
-	"views":      {},
-	"url":        {},
-}
-
-func GetExercises(c *gin.Context) {
-	limit, _ := querytools.QueryInt(c, "limit", 50)
+func GetWorkout(c *gin.Context) {
+	limit, _ := querytools.QueryInt(c, "limit", 0)
+	blockspertarget, _ := querytools.QueryInt(c, "blockspertarget", 4)
+	minblocksize, _ := querytools.QueryInt(c, "minblocksize", 4)
 	min_views, _ := querytools.QueryInt(c, "min_views", 1000000)
-	order_by := querytools.QueryOrderBy(c, ExerciseFieldSet, "-views")
 	target := querytools.QueryInToSql(c, "AND", "muscle.name", "target", "all")
 	focus := querytools.QueryInToSql(c, "AND", "focus.name", "focus", "all")
 	equipment := querytools.QueryInToSql(c, "AND", "equipment.name", "equipment", "all")
@@ -78,7 +63,6 @@ func GetExercises(c *gin.Context) {
 		`+equipment+`
 		`+force+`
 		`+experience+`
-		`+order_by.SqlStmt()+`
 		LIMIT $2
 		;`, min_views, limit)
 	if err != nil {
@@ -86,6 +70,8 @@ func GetExercises(c *gin.Context) {
 		c.JSON(500, gin.H{"message": "Database error"})
 		return
 	}
+
+	WorkoutFromExercises(exercises, blockspertarget, minblocksize)
 
 	c.JSON(200, exercises)
 }
