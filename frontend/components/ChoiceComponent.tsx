@@ -37,7 +37,7 @@ export default function ChoiceComponent({ name, initAll, options, onChange }: Ch
     <div className="space-y-4">
       <button
         onClick={toggleAll}
-        className={`w-full text-center py-2 rounded font-semibold ${isAllSelected ? 'bg-orange-500 text-white' : 'bg-gray-200'
+        className={`w-full hover:cursor-pointer hover:bg-orange-300 text-center py-2 rounded font-semibold ${isAllSelected ? 'bg-orange-500 text-white' : 'bg-gray-200'
           }`}
       >
         {isAllSelected ? `Unselect All ${name}` : `Select All ${name}`}
@@ -51,7 +51,7 @@ export default function ChoiceComponent({ name, initAll, options, onChange }: Ch
               key={option}
               onClick={() => toggleOption(option)}
               className={`aspect-square flex items-center justify-center text-sm font-medium rounded ${isSelected ? 'bg-orange-500 text-white' : 'bg-gray-100'
-                } hover:bg-orange-100`}
+                } hover:bg-orange-100 hover:cursor-pointer`}
             >
               {option}
             </button>
