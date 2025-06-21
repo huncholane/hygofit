@@ -24,21 +24,20 @@ type Workout struct {
 	Blocks []Block
 }
 
-func selectExercises(exercises Exercises, blockspertarget, minblocksize int) []Exercise {
+func selectExercises(exercises Exercises, blockspertarget int) []Exercise {
 	target_map := exercises.TargetMap()
 	var raw []Exercise
 	for key, exercises := range target_map {
 		println("There are", len(exercises), "to chose from for", key)
 		for range blockspertarget {
 			if len(exercises) == 0 {
-				println("No exercises for", key)
 				continue
 			}
 			ind := rand.Intn(len(exercises))
 			e := exercises[ind]
-			println("Adding ", e.Name)
+			println("Adding", ind, e.Name)
 			raw = append(raw, e)
-			target_map[key] = slices.Delete(exercises, ind, ind+1)
+			exercises = slices.Delete(exercises, ind, ind+1)
 		}
 	}
 	rand.Shuffle(len(raw), func(i, j int) {
@@ -47,10 +46,13 @@ func selectExercises(exercises Exercises, blockspertarget, minblocksize int) []E
 	return raw
 }
 
+func buildWorkout(exercises Exercises, blockspertarget, minblocksize int) Workout {
+	var workout Workout
+	return workout
+}
+
 func extractWorkouts(c *gin.Context) ([]Exercise, error) {
 	limit, _ := querytools.QueryInt(c, "limit", 0)
-	blockspertarget, _ := querytools.QueryInt(c, "blockspertarget", 4)
-	minblocksize, _ := querytools.QueryInt(c, "minblocksize", 4)
 	min_views, _ := querytools.QueryInt(c, "min_views", 1000000)
 	target := querytools.QueryInToSql(c, "AND", "muscle.name", "target", "all")
 	focus := querytools.QueryInToSql(c, "AND", "focus.name", "focus", "all")
@@ -94,21 +96,27 @@ WHERE views>=$1
 		return nil, err
 	}
 
-	return selectExercises(exercises, blockspertarget, minblocksize), nil
+	return exercises, nil
 }
 
 func GetWorkoutExercises(c *gin.Context) {
+	blockspertarget, _ := querytools.QueryInt(c, "blockspertarget", 4)
 	exercises, err := extractWorkouts(c)
 	if err != nil {
 		return
 	}
+	exercises = selectExercises(exercises, blockspertarget)
 	c.JSON(200, exercises)
 }
 
 func GetWorkout(c *gin.Context) {
+	blockspertarget, _ := querytools.QueryInt(c, "blockspertarget", 4)
+	minblocksize, _ := querytools.QueryInt(c, "minblocksize", 4)
 	exercises, err := extractWorkouts(c)
 	if err != nil {
 		return
 	}
+	exercises = selectExercises(exercises, blockspertarget)
+	buildWorkout(exercises, blockspertarget, minblocksize)
 	c.JSON(200, exercises)
 }
