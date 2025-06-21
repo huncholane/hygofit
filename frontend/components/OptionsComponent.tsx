@@ -14,7 +14,6 @@ export default function () {
       <ChoiceComponent options={options.experience} name="Experiences" />
       <div className="p-4" />
       <ChoiceComponent options={options.force} name="Styles" />
-
     </div>
   )
 }
