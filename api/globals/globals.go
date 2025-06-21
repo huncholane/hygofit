@@ -3,12 +3,16 @@ package globals
 import (
 	"log"
 	"os"
+	"strings"
 
 	"github.com/jmoiron/sqlx"
 	"github.com/joho/godotenv"
 )
 
-var DB *sqlx.DB
+var (
+	DB            *sqlx.DB
+	ALLOWED_HOSTS []string
+)
 
 func Init() {
 	godotenv.Load()
@@ -17,4 +21,5 @@ func Init() {
 	if err != nil {
 		log.Fatalln("DB connect failed:", err)
 	}
+	ALLOWED_HOSTS = strings.Split(os.Getenv("ALLOWED_HOSTS"), ",")
 }

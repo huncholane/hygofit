@@ -8,7 +8,7 @@ import (
 )
 
 type Options struct {
-	MuscleGroups []string `json:"musclGroups"`
+	MuscleGroups []string `json:"muscleGroups"`
 	Equipment    []string `json:"equipment"`
 	Experience   []string `json:"experience"`
 	Force        []string `json:"force"`
