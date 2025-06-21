@@ -3,12 +3,13 @@ import React, { useState, useEffect } from 'react';
 
 type ChoiceComponentProps = {
   name: string;
+  initAll?: boolean;
   options: string[];
   onChange?: (selected: string[]) => void;
 };
 
-export default function ChoiceComponent({ name, options, onChange }: ChoiceComponentProps) {
-  const [selected, setSelected] = useState<string[]>([]);
+export default function ChoiceComponent({ name, initAll, options, onChange }: ChoiceComponentProps) {
+  const [selected, setSelected] = useState<string[]>(initAll ? [...options] : []);
 
   const isAllSelected = selected.length === options.length;
 
@@ -33,7 +34,7 @@ export default function ChoiceComponent({ name, options, onChange }: ChoiceCompo
         className={`w-full text-center py-2 rounded font-semibold ${isAllSelected ? 'bg-orange-500 text-white' : 'bg-gray-200'
           }`}
       >
-        {isAllSelected ? 'Unselect All' : 'Select All' + ` ${name}`}
+        {isAllSelected ? `Unselect All ${name}` : `Select All ${name}`}
       </button>
 
       <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-7 lg:grid-cols-11 gap-2">

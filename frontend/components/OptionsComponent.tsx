@@ -9,11 +9,11 @@ export default function () {
     <div className="p-2">
       <ChoiceComponent options={options.muscleGroups} name="Muscles" />
       <div className="p-4" />
-      <ChoiceComponent options={options.equipment} name="Equipments" />
+      <ChoiceComponent options={options.equipment} initAll={true} name="Equipments" />
       <div className="p-4" />
-      <ChoiceComponent options={options.experience} name="Experiences" />
+      <ChoiceComponent options={options.experience} initAll={true} name="Experiences" />
       <div className="p-4" />
-      <ChoiceComponent options={options.force} name="Styles" />
+      <ChoiceComponent options={options.force} initAll={true} name="Styles" />
     </div>
   )
 }
