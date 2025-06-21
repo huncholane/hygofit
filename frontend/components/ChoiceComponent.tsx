@@ -17,6 +17,12 @@ export default function ChoiceComponent({ name, initAll, options, onChange }: Ch
     onChange?.(selected);
   }, [selected, onChange]);
 
+  useEffect(() => {
+    if (initAll) {
+      setSelected([...options])
+    }
+  }, [initAll, options])
+
   const toggleAll = () => {
     setSelected(isAllSelected ? [] : [...options]);
   };

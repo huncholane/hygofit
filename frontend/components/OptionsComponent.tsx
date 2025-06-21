@@ -7,6 +7,7 @@ export default function () {
 
   return (
     <div className="p-2">
+      <button className="w-full justify-center py-3 mb-4 bg-orange-500">Generate Workout</button>
       <ChoiceComponent options={options.muscleGroups} name="Muscles" />
       <div className="p-4" />
       <ChoiceComponent options={options.equipment} initAll={true} name="Equipments" />
