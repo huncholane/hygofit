@@ -12,6 +12,8 @@ func SetupRouter() *gin.Engine {
 	{
 		api.GET("/ping", handlers.Ping)
 		api.GET("/exercises", handlers.GetExercises)
+		api.GET("/workout/raw", handlers.GetWorkoutExercises)
+		api.GET("/workout", handlers.GetWorkout)
 	}
 
 	return r
