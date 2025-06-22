@@ -7,7 +7,7 @@ export async function getOptions() {
     const res = await axios.get(API_URL + '/api/options')
     return res
   } catch (e) {
-    console.log(`Failed to get options ${e}`)
+    console.error(`Failed to get options ${e}`)
   }
 }
 
@@ -18,11 +18,14 @@ export async function genWorkout(options: Options) {
         target: options.muscleGroups.join(','),
         equipment: options.equipment.join(','),
         force: options.force.join(','),
-        experience: options.experience.join(',')
+        experience: options.experience.join(','),
+        blockspertarget: options.blockspertarget,
+        minblocksize: options.minblocksize,
+        min_views: options.minviews
       }
     })
     return res
   } catch (e) {
-    console.log(`Failed to generate workout ${e}`)
+    console.error(`Failed to generate workout ${e}`)
   }
 }

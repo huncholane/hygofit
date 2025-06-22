@@ -13,18 +13,18 @@ export default function () {
   const [force, setForce] = useState(options.force)
   const [blockspertarget, setBlockspertarget] = useState(options.blockspertarget)
   const [minblocksize, setMinblocksize] = useState(options.minblocksize)
+  const [minviews, setMinviews] = useState(options.minviews)
 
   async function submit() {
-    console.log(muscles)
     const workout = await genWorkout({
       muscleGroups: muscles,
       equipment: equipment,
       experience: experience,
       force: force,
       blockspertarget: blockspertarget,
-      minblocksize: minblocksize
+      minblocksize: minblocksize,
+      minviews: minviews
     })
-    console.log(workout)
   }
 
   return (
@@ -33,6 +33,7 @@ export default function () {
       <div className="space-y-4">
         <NumberField name="blockspertarget" title="Blocks Per Muscle" value={blockspertarget} setValue={setBlockspertarget} />
         <NumberField name="minblocksize" title="Min Block Size" value={minblocksize} setValue={setMinblocksize} />
+        <NumberField name="minviews" title="Min Views" value={minviews} setValue={setMinviews} />
       </div>
       <div className="p-4" />
       <ChoiceComponent options={options.muscleGroups} onChange={val => setMuscles(val)} name="Muscles" />

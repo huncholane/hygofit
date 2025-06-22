@@ -8,14 +8,14 @@ const defaultOptions: Options = {
   experience: [],
   force: [],
   blockspertarget: 4,
-  minblocksize: 4
+  minblocksize: 4,
+  minviews: 100000
 }
 
 export function useOptions() {
   const [options, setOptions] = useState<Options>(defaultOptions);
   useEffect(() => {
     getOptions().then((o) => {
-      console.log(o)
       setOptions(o?.data || {})
     })
   }, [])

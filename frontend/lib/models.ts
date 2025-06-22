@@ -5,5 +5,6 @@ export type Options = {
   force: string[]
   minblocksize: number
   blockspertarget: number
+  minviews: number
 }
 

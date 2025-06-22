@@ -18,7 +18,7 @@ export default function (props: Props) {
         name={props.name}
         type="number"
         className="w-full rounded border px-3 py-2"
-        placeholder={props.placeholder || ""}
+        placeholder={props.placeholder || props.title}
         value={props.value}
         onChange={e => props.setValue(parseInt(e.target.value))}
       />
