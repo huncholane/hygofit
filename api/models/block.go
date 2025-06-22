@@ -79,16 +79,42 @@ func (bs BlockStatement) QueryReps() ([]Rep, error) {
 }
 
 type Block struct {
-	Difficulty int  `json:"difficulty"`
-	HighReps   bool `json:"highReps"`
-	Timed      bool `json:"timed"`
-	Failure    bool `json:"failure"`
-	Bodyweight bool `json:"bodyweight"`
-	Size       int  `json:"size"`
-	Sets       [][]*int
+	Difficulty int      `json:"difficulty"`
+	HighReps   bool     `json:"highReps"`
+	Timed      bool     `json:"timed"`
+	Failure    bool     `json:"failure"`
+	Bodyweight bool     `json:"bodyweight"`
+	Size       int      `json:"size"`
+	Sets       [][]*int `json:"sets"`
 }
 
 type Blocks []Block
+
+type BlockMap struct {
+	Timed      Blocks
+	Failure    Blocks
+	Bodyweight Blocks
+	HighReps   Blocks
+	Normal     Blocks
+}
+
+func (b Blocks) Map() BlockMap {
+	var bm BlockMap
+	for _, block := range b {
+		if block.Timed {
+			bm.Timed = append(bm.Timed, block)
+		} else if block.HighReps {
+			bm.HighReps = append(bm.HighReps, block)
+		} else if block.Bodyweight {
+			bm.Bodyweight = append(bm.Bodyweight, block)
+		} else if block.Failure {
+			bm.Failure = append(bm.Failure, block)
+		} else {
+			bm.Normal = append(bm.Normal, block)
+		}
+	}
+	return bm
+}
 
 func (b Blocks) Shuffle() Blocks {
 	rand.Shuffle(len(b), func(i, j int) {
