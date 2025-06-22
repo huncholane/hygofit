@@ -26,8 +26,6 @@ func BlockStatementFromContext(c *gin.Context) BlockStatement {
 	}
 }
 
-type Block struct{}
-
 type Rep struct {
 	BlockId          int  `db:"block_id" json:"block_id"`
 	RepId            int  `db:"rep_id" json:"rep_id"`
@@ -70,12 +68,42 @@ func (bs BlockStatement) QueryReps() ([]Rep, error) {
 	WHERE block.difficulty <= $1
 		AND block.difficulty >= $2
 		AND block_sizes.size <= $3
-		AND block_sizes.size >= $4;`
+		AND block_sizes.size >= $4
+	ORDER BY blockrep_position,reppart_position;`
 	var reps []Rep
 	err := globals.DB.Select(&reps, stmt, bs.MaxDifficulty, bs.MinDifficulty, bs.MaxBlockSize, bs.MinBlockSize)
 	return reps, err
 }
 
-// func (bs BlockStatement) QueryBlocks([]Block, error) {
-// 	reps, err := bs.QueryReps()
-// }
+type Block struct {
+	Difficulty int  `json:"difficulty"`
+	HighReps   bool `json:"highReps"`
+	Timed      bool `json:"timed"`
+	Failure    bool `json:"failure"`
+	Bodyweight bool `json:"bodyweight"`
+	Sets       [][]*int
+}
+
+type Blocks []Block
+
+func (bs BlockStatement) QueryBlocks() (Blocks, error) {
+	var blocks Blocks
+	reps, err := bs.QueryReps()
+	if err != nil {
+		return nil, err
+	}
+	lastBlockId := -1
+	for _, rep := range reps {
+		if rep.BlockId != lastBlockId {
+			blocks = append(blocks, Block{
+				Difficulty: rep.Difficulty,
+				HighReps:   rep.HighReps,
+				Timed:      rep.Timed,
+				Failure:    rep.Failure,
+				Bodyweight: rep.Bodyweight,
+				Sets:       [][]*int{},
+			})
+		}
+	}
+	return blocks, nil
+}
