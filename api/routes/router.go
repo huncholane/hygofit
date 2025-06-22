@@ -15,7 +15,6 @@ func SetupRouter() *gin.Engine {
 
 	api := r.Group("/api")
 	{
-		api.GET("/ping", handlers.Ping)
 		api.GET("/exercises", handlers.GetExercises)
 		api.GET("/workout/raw", handlers.GetWorkoutExercises)
 		api.GET("/workout", handlers.GetWorkout)
