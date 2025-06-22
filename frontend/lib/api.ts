@@ -1,6 +1,6 @@
 import axios from "axios"
 import { API_URL } from "./globals"
-import { Options } from "./models"
+import { Exercise, Options } from "./models"
 
 export async function getOptions(): Promise<Options | undefined> {
   try {
@@ -11,7 +11,7 @@ export async function getOptions(): Promise<Options | undefined> {
   }
 }
 
-export async function genWorkout(options: Options) {
+export async function genWorkout(options: Options): Promise<Exercise[] | undefined> {
   try {
     const res = await axios.get(API_URL + '/api/workout', {
       params: {
