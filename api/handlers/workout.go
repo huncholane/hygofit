@@ -12,7 +12,7 @@ import (
 
 type BlockExercise struct {
 	Exercise
-	Quantity int    `json:"quantity"`
+	Quantity []int  `json:"quantity"`
 	Unit     string `json:"unit"`
 }
 
@@ -46,8 +46,15 @@ func selectExercises(exercises Exercises, blockspertarget int) []Exercise {
 	return raw
 }
 
-func buildWorkout(exercises Exercises, blockspertarget, minblocksize int) Workout {
+func buildWorkout(exercises Exercises, blockspertarget, maxcyclelength, minblocksize, maxblocksize int) Workout {
 	var workout Workout
+	i := 0
+	n := len(exercises)
+	for i < n {
+		cyclelength := rand.Intn(min(n-i, maxcyclelength))
+
+		i += cyclelength
+	}
 	return workout
 }
 
@@ -111,12 +118,14 @@ func GetWorkoutExercises(c *gin.Context) {
 
 func GetWorkout(c *gin.Context) {
 	blockspertarget, _ := querytools.QueryInt(c, "blockspertarget", 4)
+	maxcyclelength, _ := querytools.QueryInt(c, "maxcyclelength", 2)
 	minblocksize, _ := querytools.QueryInt(c, "minblocksize", 4)
+	maxblocksize, _ := querytools.QueryInt(c, "maxblocksize", 6)
 	exercises, err := extractWorkouts(c)
 	if err != nil {
 		return
 	}
 	exercises = selectExercises(exercises, blockspertarget)
-	buildWorkout(exercises, blockspertarget, minblocksize)
+	workout := buildWorkout(exercises, blockspertarget, maxcyclelength, minblocksize, maxblocksize)
 	c.JSON(200, exercises)
 }

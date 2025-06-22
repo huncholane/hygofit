@@ -14,6 +14,7 @@ export default function () {
   const [blockspertarget, setBlockspertarget] = useState(options.blockspertarget)
   const [minblocksize, setMinblocksize] = useState(options.minblocksize)
   const [minviews, setMinviews] = useState(options.minviews)
+  const [focus, setFocus] = useState(options.focus)
 
   async function submit() {
     const workout = await genWorkout({
@@ -23,7 +24,8 @@ export default function () {
       force: force,
       blockspertarget: blockspertarget,
       minblocksize: minblocksize,
-      minviews: minviews
+      minviews: minviews,
+      focus: focus
     })
     console.log(workout)
   }
@@ -40,6 +42,8 @@ export default function () {
       <ChoiceComponent options={options.muscleGroups} onChange={val => setMuscles(val)} name="Muscles" />
       <div className="p-4" />
       <ChoiceComponent options={options.equipment} onChange={val => setEquipment(val)} initAll={true} name="Equipments" />
+      <div className="p-4" />
+      <ChoiceComponent options={options.focus} onChange={val => setFocus(val)} initAll={true} name="Focuses" />
       <div className="p-4" />
       <ChoiceComponent options={options.experience} onChange={val => setExperience(val)} initAll={true} name="Experiences" />
       <div className="p-4" />

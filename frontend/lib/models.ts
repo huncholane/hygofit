@@ -6,6 +6,7 @@ export type Options = {
   minblocksize: number
   blockspertarget: number
   minviews: number
+  focus: string[]
 }
 
 export type Exercise = {

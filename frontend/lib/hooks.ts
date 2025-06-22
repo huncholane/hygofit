@@ -9,7 +9,8 @@ const defaultOptions: Options = {
   force: [],
   blockspertarget: 4,
   minblocksize: 4,
-  minviews: 100000
+  minviews: 100000,
+  focus: []
 }
 
 export function useOptions() {

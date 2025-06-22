@@ -12,6 +12,7 @@ type Options struct {
 	Equipment    []string `json:"equipment"`
 	Experience   []string `json:"experience"`
 	Force        []string `json:"force"`
+	Focus        []string `json:"focus"`
 }
 
 func extractOption(c *gin.Context, table string) ([]string, error) {
@@ -39,6 +40,9 @@ func GetOptions(c *gin.Context) {
 		return
 	}
 	if options.Force, err = extractOption(c, "force"); err != nil {
+		return
+	}
+	if options.Focus, err = extractOption(c, "focus"); err != nil {
 		return
 	}
 	c.JSON(200, options)
