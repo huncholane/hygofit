@@ -18,18 +18,19 @@ func GetWorkoutExercises(c *gin.Context) {
 }
 
 func GetWorkout(c *gin.Context) {
-	// exercises, err := models.ExerciseStatementFromContext(c).QueryExercises()
-	// if err != nil {
-	// 	return
-	// }
-	// exercises = exercises.Shuffle()
-	// blocks, err := models.BlockStatementFromContext(c).QueryBlocks()
-	// if err != nil {
-	// 	log.Printf("unable to query blocks for workout: %v", err)
-	// 	c.JSON(500, "Database Error")
-	// 	return
-	// }
-	// exercises = selectExercises(exercises, blockspertarget)
-	// workout := buildWorkout(exercises, maxcyclelength, mindifficulty, maxdifficulty)
-	// c.JSON(200, workout)
+	exercises, err := models.ExerciseStatementFromContext(c).QueryExercises()
+	if err != nil {
+		log.Printf("unable to query exercises for workout: %v", err)
+		c.JSON(500, "Database Error")
+		return
+	}
+	exercises = exercises.Shuffle()
+	blocks, err := models.BlockStatementFromContext(c).QueryBlocks()
+	if err != nil {
+		log.Printf("unable to query blocks for workout: %v", err)
+		c.JSON(500, "Database Error")
+		return
+	}
+	workout := models.BuildWorkout(exercises, blocks)
+	c.JSON(200, workout)
 }

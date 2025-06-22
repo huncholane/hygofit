@@ -1,6 +1,8 @@
 package models
 
 import (
+	"math/rand/v2"
+
 	"github.com/gin-gonic/gin"
 	"github.com/huncholane/golib/querytools"
 	"github.com/huncholane/hygofit/api/globals"
@@ -87,6 +89,20 @@ type Block struct {
 }
 
 type Blocks []Block
+
+func (b Blocks) Shuffle() Blocks {
+	rand.Shuffle(len(b), func(i, j int) {
+		b[i], b[j] = b[j], b[i]
+	})
+	return b
+}
+
+func (b Blocks) Random() Block {
+	if len(b) == 0 {
+		return Block{}
+	}
+	return b[rand.IntN(len(b))]
+}
 
 func (bs BlockStatement) QueryBlocks() (Blocks, error) {
 	var blocks Blocks
