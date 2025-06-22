@@ -8,3 +8,14 @@ export type Options = {
   minviews: number
 }
 
+export type Exercise = {
+  equipment: string
+  experience: string
+  focus: string
+  id: number
+  name: string
+  target: string
+  url: string
+  views: number
+}
+
