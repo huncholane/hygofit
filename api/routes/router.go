@@ -20,6 +20,7 @@ func SetupRouter() *gin.Engine {
 		api.GET("/workout/raw", handlers.GetWorkoutExercises)
 		api.GET("/workout", handlers.GetWorkout)
 		api.GET("/options", handlers.GetOptions)
+		api.GET("/reps", handlers.GetReps)
 	}
 
 	return r

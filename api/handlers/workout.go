@@ -16,10 +16,6 @@ type BlockExercise struct {
 	Unit     string `json:"unit"`
 }
 
-type Block struct {
-	Exercises []BlockExercise
-}
-
 type Workout struct {
 	Blocks []Block
 }
@@ -35,7 +31,6 @@ func selectExercises(exercises Exercises, blockspertarget int) []Exercise {
 			}
 			ind := rand.Intn(len(exercises))
 			e := exercises[ind]
-			println("Adding", ind, e.Name)
 			raw = append(raw, e)
 			exercises = slices.Delete(exercises, ind, ind+1)
 		}
@@ -46,7 +41,11 @@ func selectExercises(exercises Exercises, blockspertarget int) []Exercise {
 	return raw
 }
 
-func buildWorkout(exercises Exercises, blockspertarget, maxcyclelength, minblocksize, maxblocksize int) Workout {
+type Block struct {
+	Exercises []BlockExercise
+}
+
+func buildWorkout(exercises Exercises, maxcyclelength, mindifficulty, maxdifficulty int) Workout {
 	var workout Workout
 	i := 0
 	n := len(exercises)
@@ -119,13 +118,13 @@ func GetWorkoutExercises(c *gin.Context) {
 func GetWorkout(c *gin.Context) {
 	blockspertarget, _ := querytools.QueryInt(c, "blockspertarget", 4)
 	maxcyclelength, _ := querytools.QueryInt(c, "maxcyclelength", 2)
-	minblocksize, _ := querytools.QueryInt(c, "minblocksize", 4)
-	maxblocksize, _ := querytools.QueryInt(c, "maxblocksize", 6)
+	mindifficulty, _ := querytools.QueryInt(c, "mindifficulty", 2)
+	maxdifficulty, _ := querytools.QueryInt(c, "maxdifficulty", 3)
 	exercises, err := extractWorkouts(c)
 	if err != nil {
 		return
 	}
 	exercises = selectExercises(exercises, blockspertarget)
-	workout := buildWorkout(exercises, blockspertarget, maxcyclelength, minblocksize, maxblocksize)
+	workout := buildWorkout(exercises, maxcyclelength, mindifficulty, maxdifficulty)
 	c.JSON(200, workout)
 }
