@@ -37,16 +37,16 @@ type Rep struct {
 	Failure          bool `db:"failure" json:"failure"`
 	BlockRepPosition int  `db:"blockrep_position" json:"blockRepPosition"`
 	RepPartPosition  int  `db:"reppart_position" json:"repPartPosition"`
+	BlockSize        int  `db:"block_size" json:"blockSize"`
 }
 
 func (bs BlockStatement) QueryReps() ([]Rep, error) {
 	stmt := `
 	WITH block_sizes AS (
-		SELECT block.id AS block_id, COUNT(reppart.id) AS size
+		SELECT block.id AS block_id, COUNT(rep.id) AS size
 		FROM block
 		JOIN blockrep ON block.id = blockrep.block
 		JOIN rep ON rep.id = blockrep.rep
-		JOIN reppart ON rep.id = reppart.rep
 		GROUP BY block.id
 	)
 	SELECT
@@ -59,6 +59,7 @@ func (bs BlockStatement) QueryReps() ([]Rep, error) {
 		block.timed,
 		block.bodyweight,
 		block.highreps,
+		block_sizes.size AS block_size,
 		block.failure
 	FROM block
 	JOIN block_sizes ON block.id = block_sizes.block_id
@@ -69,7 +70,7 @@ func (bs BlockStatement) QueryReps() ([]Rep, error) {
 		AND block.difficulty >= $2
 		AND block_sizes.size <= $3
 		AND block_sizes.size >= $4
-	ORDER BY blockrep_position,reppart_position;`
+	ORDER BY block.id,blockrep.position,reppart.position;`
 	var reps []Rep
 	err := globals.DB.Select(&reps, stmt, bs.MaxDifficulty, bs.MinDifficulty, bs.MaxBlockSize, bs.MinBlockSize)
 	return reps, err
@@ -81,6 +82,7 @@ type Block struct {
 	Timed      bool `json:"timed"`
 	Failure    bool `json:"failure"`
 	Bodyweight bool `json:"bodyweight"`
+	Size       int  `json:"size"`
 	Sets       [][]*int
 }
 
@@ -93,6 +95,7 @@ func (bs BlockStatement) QueryBlocks() (Blocks, error) {
 		return nil, err
 	}
 	lastBlockId := -1
+	lastSetPos := -1
 	for _, rep := range reps {
 		if rep.BlockId != lastBlockId {
 			blocks = append(blocks, Block{
@@ -101,9 +104,18 @@ func (bs BlockStatement) QueryBlocks() (Blocks, error) {
 				Timed:      rep.Timed,
 				Failure:    rep.Failure,
 				Bodyweight: rep.Bodyweight,
+				Size:       rep.BlockSize,
 				Sets:       [][]*int{},
 			})
+			lastBlockId = rep.BlockId
 		}
+		i := len(blocks) - 1
+		if rep.BlockRepPosition != lastSetPos {
+			blocks[i].Sets = append(blocks[i].Sets, []*int{})
+			lastSetPos = rep.BlockRepPosition
+		}
+		j := len(blocks[i].Sets) - 1
+		blocks[i].Sets[j] = append(blocks[i].Sets[j], rep.Amount)
 	}
 	return blocks, nil
 }
