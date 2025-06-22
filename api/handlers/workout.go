@@ -127,5 +127,5 @@ func GetWorkout(c *gin.Context) {
 	}
 	exercises = selectExercises(exercises, blockspertarget)
 	workout := buildWorkout(exercises, blockspertarget, maxcyclelength, minblocksize, maxblocksize)
-	c.JSON(200, exercises)
+	c.JSON(200, workout)
 }
