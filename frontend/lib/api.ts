@@ -24,7 +24,7 @@ export async function genWorkout(options: Options) {
         min_views: options.minviews
       }
     })
-    return res
+    return res.data
   } catch (e) {
     console.error(`Failed to generate workout ${e}`)
   }

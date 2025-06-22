@@ -25,6 +25,7 @@ export default function () {
       minblocksize: minblocksize,
       minviews: minviews
     })
+    console.log(workout)
   }
 
   return (
