@@ -16,7 +16,9 @@ export function useOptions() {
   const [options, setOptions] = useState<Options>(defaultOptions);
   useEffect(() => {
     getOptions().then((o) => {
-      setOptions(o?.data || {})
+      if (o) {
+        setOptions(o)
+      }
     })
   }, [])
   return options

@@ -2,10 +2,10 @@ import axios from "axios"
 import { API_URL } from "./globals"
 import { Options } from "./models"
 
-export async function getOptions() {
+export async function getOptions(): Promise<Options | undefined> {
   try {
     const res = await axios.get(API_URL + '/api/options')
-    return res
+    return res.data
   } catch (e) {
     console.error(`Failed to get options ${e}`)
   }
