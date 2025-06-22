@@ -11,9 +11,11 @@ export default function () {
   const [equipment, setEquipment] = useState(options.equipment)
   const [experience, setExperience] = useState(options.experience)
   const [force, setForce] = useState(options.force)
-  const [blockspertarget, setBlockspertarget] = useState(options.blockspertarget)
-  const [minblocksize, setMinblocksize] = useState(options.minblocksize)
-  const [minviews, setMinviews] = useState(options.minviews)
+  const [minBlockSize, setMinBlockSize] = useState(options.minBlockSize)
+  const [maxBlockSize, setMaxBlockSize] = useState(options.maxBlockSize)
+  const [minDifficulty, setMinDifficulty] = useState(options.minDifficulty)
+  const [maxDifficulty, setMaxDifficulty] = useState(options.maxDifficulty)
+  const [minViews, setMinViews] = useState(options.minViews)
   const [focus, setFocus] = useState(options.focus)
 
   async function submit() {
@@ -22,9 +24,11 @@ export default function () {
       equipment: equipment,
       experience: experience,
       force: force,
-      blockspertarget: blockspertarget,
-      minblocksize: minblocksize,
-      minviews: minviews,
+      minBlockSize: minBlockSize,
+      maxBlockSize: maxBlockSize,
+      maxDifficulty: maxDifficulty,
+      minDifficulty: minDifficulty,
+      minViews: minViews,
       focus: focus
     })
     console.log(workout)
@@ -34,9 +38,11 @@ export default function () {
     <div className="p-2">
       <button onClick={submit} className="w-full justify-center py-3 mb-4 bg-orange-500 hover:bg-orange-600 hover:cursor-pointer text-white text-2xl">Generate Workout</button>
       <div className="space-y-4">
-        <NumberField name="blockspertarget" title="Blocks Per Muscle" value={blockspertarget} setValue={setBlockspertarget} />
-        <NumberField name="minblocksize" title="Min Block Size" value={minblocksize} setValue={setMinblocksize} />
-        <NumberField name="minviews" title="Min Views" value={minviews} setValue={setMinviews} />
+        <NumberField name="minBlockSize" title="Min Block Size" value={minBlockSize} setValue={setMinBlockSize} />
+        <NumberField name="maxBlockSize" title="Max Block Size" value={maxBlockSize} setValue={setMaxBlockSize} />
+        <NumberField name="minDifficulty" title="Min Difficulty (1-4)" value={minDifficulty} setValue={setMinDifficulty} />
+        <NumberField name="maxDifficulty" title="Max Difficulty (1-4)" value={maxDifficulty} setValue={setMaxDifficulty} />
+        <NumberField name="minViews" title="Min Views" value={minViews} setValue={setMinViews} />
       </div>
       <div className="p-4" />
       <ChoiceComponent options={options.muscleGroups} onChange={val => setMuscles(val)} name="Muscles" />

@@ -1,17 +1,7 @@
 import { useEffect, useState } from "react";
 import { getOptions } from "./api";
-import { Options } from "./models";
+import { defaultOptions, Options } from "./models";
 
-const defaultOptions: Options = {
-  muscleGroups: [],
-  equipment: [],
-  experience: [],
-  force: [],
-  blockspertarget: 4,
-  minblocksize: 4,
-  minviews: 100000,
-  focus: []
-}
 
 export function useOptions() {
   const [options, setOptions] = useState<Options>(defaultOptions);

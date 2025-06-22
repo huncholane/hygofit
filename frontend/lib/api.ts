@@ -19,9 +19,11 @@ export async function genWorkout(options: Options): Promise<Exercise[] | undefin
         equipment: options.equipment.join(','),
         force: options.force.join(','),
         experience: options.experience.join(','),
-        blockspertarget: options.blockspertarget,
-        minblocksize: options.minblocksize,
-        min_views: options.minviews
+        minBlockSize: options.minBlockSize,
+        maxBlockSize: options.maxBlockSize,
+        minDifficulty: options.minDifficulty,
+        maxDifficulty: options.maxDifficulty,
+        minViews: options.minViews
       }
     })
     return res.data
