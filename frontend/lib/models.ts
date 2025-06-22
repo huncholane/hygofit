@@ -3,4 +3,7 @@ export type Options = {
   equipment: string[]
   experience: string[]
   force: string[]
+  minblocksize: number
+  blockspertarget: number
 }
+

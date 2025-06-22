@@ -7,6 +7,8 @@ const defaultOptions: Options = {
   equipment: [],
   experience: [],
   force: [],
+  blockspertarget: 4,
+  minblocksize: 4
 }
 
 export function useOptions() {
