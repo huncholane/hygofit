@@ -37,3 +37,21 @@ export type Exercise = {
   views: number
 }
 
+export type Block = {
+  id: number
+  name: string
+  target: string
+  focus: string
+  equipment: string
+  force: string
+  experience: string
+  views: number
+  url: string
+  difficulty: number
+  highReps: boolean
+  timed: boolean
+  failure: boolean
+  bodyweight: boolean
+  size: number
+  sets: number[][]
+}
