@@ -14,7 +14,7 @@ mkdir install
 echo "Updating go"
 (
 	cd install
-	curl -LO https://go.dev/dl/go1.24.4.darwin-amd64.tar.gz
+	curl -LO https://go.dev/dl/go1.24.4.linux-amd64.tar.gz
 	rm -rf /usr/local/go && tar -C /usr/local -xzf go1.24.4.darwin-amd64.tar.gz
 )
 go version
@@ -22,9 +22,9 @@ go version
 # Update node
 echo "Updating node"
 (
-	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-	\. "$HOME/.nvm/nvm.sh"
-	nvm install 22
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash >/dev/null
+	source "$HOME/.nvm/nvm.sh"
+	nvm install 22 >/dev/null
 	node -v
 )
 
