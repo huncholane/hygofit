@@ -23,6 +23,7 @@ export async function genWorkout(options: Options): Promise<Exercise[] | undefin
         maxBlockSize: options.maxBlockSize,
         minDifficulty: options.minDifficulty,
         maxDifficulty: options.maxDifficulty,
+        blocksPerTarget: options.blocksPerTarget,
         minViews: options.minViews
       }
     })

@@ -8,6 +8,7 @@ export type Options = {
   minDifficulty: number
   maxDifficulty: number
   minViews: number
+  blocksPerTarget: number
   focus: string[]
 }
 
@@ -21,6 +22,7 @@ export const defaultOptions: Options = {
   minDifficulty: 2,
   maxDifficulty: 3,
   minViews: 100000,
+  blocksPerTarget: 4,
   focus: []
 }
 
