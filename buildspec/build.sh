@@ -12,6 +12,7 @@ echo "Successfully built api"
 echo "Building frontend"
 (
 	cd frontend
+	npm i
 	npm run build
 )
 echo "Successfully built frontend"
