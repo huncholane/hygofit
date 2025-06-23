@@ -25,6 +25,7 @@ go version
 echo "Updating node"
 (
 	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash >/dev/null
+	source "$HOME/.nvm/nvm.sh"
 	nvm install 22 >/dev/null
 )
 source "$HOME/.nvm/nvm.sh"
