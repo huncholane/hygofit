@@ -33,6 +33,8 @@ scpto() {
 	scp -i "$PEM_FILE" "$1" "ubuntu@$EC2:$2"
 }
 
-source_env
-source_nvm
-export_go
+setup() {
+	source_env
+	source_nvm
+	export_go
+}
