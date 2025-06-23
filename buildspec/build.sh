@@ -20,9 +20,7 @@ echo "Successfully built frontend"
 
 echo "Migrating database"
 (
-	cp "$ENV_FILE" database/.env
 	cd database
-	ls -la
 	sh manage.sh migrate
 )
 echo "Successfully migrated"

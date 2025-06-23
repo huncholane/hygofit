@@ -1,7 +1,11 @@
 #!/bin/bash
 
 set -a
-source .env
+if [ -s "$ENV_FILE" ]; then
+	source $ENV_FILE
+else
+	source .env
+fi
 set +a
 
 DATABASE_ROOT="postgresql://$DATABASE_USER:$DATABASE_PASSWORD@$DATABASE_HOST:$DATABASE_PORT"
