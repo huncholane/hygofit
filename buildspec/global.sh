@@ -12,3 +12,4 @@ fi
 
 export SSH="ssh -i $PEM_FILE ubuntu@$EC2"
 export SCP="scp -i $PEM_FILE"
+alias go=go1.24.4
