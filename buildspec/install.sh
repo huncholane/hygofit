@@ -35,7 +35,7 @@ else
 	(
 		curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash >/dev/null
 		source_nvm
-		nvm install "NODE_VERSION" >/dev/null
+		nvm install "v$NODE_VERSION" >/dev/null
 	)
 	source_nvm
 	echo "Node Version"
