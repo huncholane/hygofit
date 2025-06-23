@@ -8,14 +8,6 @@ aws s3 cp s3://hygo.secrets/hygo.pem "$PEM_FILE"
 aws s3 cp s3://hygo.secrets/hygofit.env "$ENV_FILE"
 chmod 400 /tmp/hygo.pem
 
-# Node install
-NODE_VERSION=20
-if ! command -v node &>/dev/null; then
-	echo "Installing Node.js $NODE_VERSION..."
-	curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash -
-	apt-get update && apt-get install -y nodejs
-fi
-
 # Confirm installs
 echo "Installed versions:"
 go version
