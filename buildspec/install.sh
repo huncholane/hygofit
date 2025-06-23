@@ -41,3 +41,6 @@ else
 	echo "Node Version"
 	node -v
 fi
+
+# Install psql
+yum install -y postgresql
