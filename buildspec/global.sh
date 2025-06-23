@@ -16,4 +16,4 @@ fi
 
 export SSH="ssh -i $PEM_FILE ubuntu@$EC2"
 export SCP="scp -i $PEM_FILE"
-export PATH=$PATH:/usr/local/go/bin
+export PATH=/usr/local/go/bin:$PATH
