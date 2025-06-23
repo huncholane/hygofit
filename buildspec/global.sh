@@ -10,6 +10,10 @@ if [ -f "$ENV_FILE" ]; then
 	set +a
 fi
 
+if [ -f "$HOME/.nvm/nvm.sh" ]; then
+	\. "$HOME/.nvm/nvm.sh"
+fi
+
 export SSH="ssh -i $PEM_FILE ubuntu@$EC2"
 export SCP="scp -i $PEM_FILE"
-alias go=go1.24.4
+export PATH=$PATH:/usr/local/go/bin
