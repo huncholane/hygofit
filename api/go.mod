@@ -1,13 +1,13 @@
 module github.com/huncholane/hygofit/api
 
-go 1.24.2
+go 1.24
 
 toolchain go1.24.4
 
 require (
 	github.com/gin-contrib/cors v1.7.6
 	github.com/gin-gonic/gin v1.10.1
-	github.com/huncholane/golib v0.0.0-20250618001214-41a3230d6624
+	github.com/huncholane/golib v0.0.0-20250623205540-16bf6fc36955
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/joho/godotenv v1.5.1
 	github.com/lib/pq v1.10.9
