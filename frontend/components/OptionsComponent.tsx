@@ -4,6 +4,7 @@ import ChoiceComponent from "./ChoiceComponent"
 import NumberField from "./NumberField"
 import { useState } from "react"
 import { genWorkout } from "@/lib/api"
+import { useRouter } from "next/navigation"
 
 export default function () {
   const options = useOptions()
@@ -18,6 +19,7 @@ export default function () {
   const [minViews, setMinViews] = useState(options.minViews)
   const [blocksPerTarget, setBlocksPerTarget] = useState(options.blocksPerTarget)
   const [focus, setFocus] = useState(options.focus)
+  const router = useRouter()
 
   async function submit() {
     const workout = await genWorkout({
@@ -33,7 +35,8 @@ export default function () {
       blocksPerTarget: blocksPerTarget,
       focus: focus
     })
-    console.log(workout)
+    localStorage.setItem("lastWorkout", JSON.stringify(workout))
+    router.push("/workout")
   }
 
   return (
