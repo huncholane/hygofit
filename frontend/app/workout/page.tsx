@@ -2,7 +2,7 @@
 import WorkoutDisplay from "@/components/WorkoutDisplay"
 
 
-export default function () {
+export default function page() {
   return (
     <div className="p-4 space-y-6">
       <WorkoutDisplay />

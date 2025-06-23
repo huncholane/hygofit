@@ -6,7 +6,7 @@ import { genWorkout } from "@/lib/api"
 
 export default function WorkoutPage() {
   const [workout, setWorkout] = useStorage<Block[]>("lastWorkout", [])
-  const [options, _] = useStorage<Options>("lastOptions", defaultOptions)
+  const [options,] = useStorage<Options>("lastOptions", defaultOptions)
   const router = useRouter()
 
   async function refreshWorkout() {

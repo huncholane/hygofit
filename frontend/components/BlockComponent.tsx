@@ -5,7 +5,7 @@ type Props = {
   block: Block
 }
 
-export default function ({ block }: Props) {
+export default function BlockComponent({ block }: Props) {
   return (
     <div className="p-4 my-2 border rounded-lg shadow">
       <h2 className="text-xl font-bold">{block.name}</h2>

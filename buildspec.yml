@@ -1,0 +1,30 @@
+version: 0.2
+
+env:
+  variables:
+    PEM_KEY: "/root/.ssh/key"
+
+proxy:
+  logs: yes
+
+phases:
+  install:
+    commands:
+      - sh buildspec/install.sh
+
+  build:
+    commands:
+      - sh buildspec/build.sh
+
+  post_build:
+    commands:
+      - sh buildspec/post_build.sh
+
+cache:
+  paths:
+    - ~/go
+    - /usr/bin/go
+
+artifacts:
+  paths:
+    - rustlib/turbobid/target/release/turbobid

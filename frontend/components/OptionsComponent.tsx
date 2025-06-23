@@ -6,7 +6,7 @@ import { useState } from "react"
 import { genWorkout } from "@/lib/api"
 import { useRouter } from "next/navigation"
 
-export default function () {
+export default function OptionsComponent() {
   const options = useOptions()
   const [muscles, setMuscles] = useState(options.muscleGroups)
   const [equipment, setEquipment] = useState(options.equipment)

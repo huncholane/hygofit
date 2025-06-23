@@ -7,7 +7,7 @@ type Props = {
   setValue: Dispatch<SetStateAction<number>>
   placeholder?: string
 }
-export default function (props: Props) {
+export default function NumberField(props: Props) {
   return (
     <div>
       <label htmlFor={props.name} className="block mb-1 font-medium">

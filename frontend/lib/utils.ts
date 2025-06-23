@@ -15,7 +15,7 @@ export function useStorage<T>(
         setVal(default_val)
       }
     }
-  }, [item])
+  }, [item, default_val])
 
   const setStorage: Dispatch<SetStateAction<T>> = (newVal) => {
     setVal((prev) => {
