@@ -9,7 +9,7 @@ aws s3 cp s3://hygo.secrets/hygofit.env "$ENV_FILE"
 chmod 400 /tmp/hygo.pem
 
 # Go install
-GO_VERSION=1.22.3
+GO_VERSION=1.23
 if ! command -v go &>/dev/null; then
 	echo "Installing Go $GO_VERSION..."
 	curl -sSLo go.tar.gz "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz"
