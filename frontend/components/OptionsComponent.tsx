@@ -22,7 +22,7 @@ export default function () {
   const router = useRouter()
 
   async function submit() {
-    const workout = await genWorkout({
+    const lastOptions = {
       muscleGroups: muscles,
       equipment: equipment,
       experience: experience,
@@ -34,8 +34,10 @@ export default function () {
       minViews: minViews,
       blocksPerTarget: blocksPerTarget,
       focus: focus
-    })
+    }
+    const workout = await genWorkout(lastOptions)
     localStorage.setItem("lastWorkout", JSON.stringify(workout))
+    localStorage.setItem("lastOptions", JSON.stringify(lastOptions))
     router.push("/workout")
   }
 
