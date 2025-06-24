@@ -6,4 +6,5 @@ RUN apk add --no-cache \
   nodejs=22.16.0-r2 \
   aws-cli=2.27.25-r0 \
   npm=11.3.0-r0 \
+  openssh=10.0_p1-r7 \
   && rm -rf /var/cache/apk/*
