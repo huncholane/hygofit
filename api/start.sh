@@ -10,7 +10,7 @@ wait_for_port_free() {
 }
 
 start() {
-	sh run main &
+	./main &
 }
 
 restart() {
