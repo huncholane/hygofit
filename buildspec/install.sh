@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+source buildspec/global.sh
 
 # Download PEM key from S3
 echo "Downloading PEM key..."
