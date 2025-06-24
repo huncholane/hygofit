@@ -16,3 +16,4 @@ sudo mkdir -p /usr/local/hygofit
 # Enable and start the service
 sudo systemctl daemon-reload
 sudo systemctl enable hygofit.service --now
+sudo systemctl restart hygofit.service
