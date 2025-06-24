@@ -1,0 +1,16 @@
+[Unit]
+Description=Hygofit API
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/hygofit
+Restart=always
+User=ubuntu
+EnvironmentFile=/etc/hygofit.env
+WorkingDirectory=/usr/local/hygofit
+StandardOutput=file:/var/log/hygofit.log
+StandardError=file:/var/log/hygofit.err.log
+
+[Install]
+WantedBy=multi-user.target
+
