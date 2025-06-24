@@ -11,6 +11,7 @@ set +a
 DATABASE_ROOT="postgresql://$DATABASE_USER:$DATABASE_PASSWORD@$DATABASE_HOST:$DATABASE_PORT"
 DATABASE_URL="$DATABASE_ROOT/$DATABASE_TABLE"
 
+ls -la
 echo "Connecting to $DATABASE_URL"
 
 # Initializes the migration table

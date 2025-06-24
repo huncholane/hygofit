@@ -5,6 +5,8 @@ setup
 
 aws s3 sync frontend/out s3://hygofit.frontend --delete >/dev/null
 
+ls "$PEM_FILE"
+
 echo "Making hygofit directory"
 dossh "mkdir -p ~/hygofit"
 echo "Copying main to server"

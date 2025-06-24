@@ -6,7 +6,7 @@ source buildspec/global.sh
 echo "Downloading PEM key..."
 aws s3 cp s3://hygo.secrets/hygo.pem "$PEM_FILE"
 aws s3 cp s3://hygo.secrets/hygofit.env "$ENV_FILE"
-chmod 400 /tmp/hygo.pem
+chmod 400 "$PEM_FILE"
 
 # Update go
 echo "Checking go version"
