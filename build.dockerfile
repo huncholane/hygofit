@@ -5,4 +5,5 @@ RUN apk add --no-cache \
   go=1.24.4-r0 \
   nodejs=22.16.0-r2 \
   aws-cli=2.27.25-r0 \
+  npm=11.3.0-r0 \
   && rm -rf /var/cache/apk/*
