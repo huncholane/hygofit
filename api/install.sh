@@ -14,5 +14,5 @@ sudo install -m 600 hygofit.env /etc/hygofit.env
 sudo mkdir -p /usr/local/hygofit
 
 # Enable and start the service
-systemctl daemon-reload
-systemctl enable hygofit.service --now
+sudo systemctl daemon-reload
+sudo systemctl enable hygofit.service --now
