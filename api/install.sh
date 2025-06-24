@@ -2,13 +2,13 @@
 set -e
 
 # Copy binary
-install -m 755 main /usr/local/bin/hygofit
+sudo install -m 755 main /usr/local/bin/hygofit
 
 # Copy service file
-install -m 644 hygofit.service /etc/systemd/system/hygofit.service
+sudo install -m 644 hygofit.service /etc/systemd/system/hygofit.service
 
 # Copy env file
-install -m 600 hygofit.env /etc/hygofit.env
+sudo install -m 600 hygofit.env /etc/hygofit.env
 
 # Make working directory
 sudo mkdir -p /usr/local/hygofit
