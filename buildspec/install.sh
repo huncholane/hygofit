@@ -32,15 +32,12 @@ if node -v | grep -q "$NODE_VERSION"; then
 	echo "Node is up to date"
 else
 	echo "Updating node"
-	(
-		curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash >/dev/null
-		source_nvm
-		nvm install "v$NODE_VERSION" >/dev/null
-	)
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash >/dev/null
 	source_nvm
+	nvm install "v$NODE_VERSION" >/dev/null
 	echo "Node Version"
 	node -v
 fi
 
 # Install psql
-yum install -y postgresql
+yum install -y postgresql16
