@@ -2,6 +2,17 @@
 set -e
 source buildspec/global.sh
 
+if [ -d frontend/node_modules ]; then
+	echo "Node modules was cached"
+else
+	echo "Node modules was not cached"
+fi
+if [ -d frontend/.next ]; then
+	echo "Next build was cached"
+else
+	echo "Next build was not cached"
+fi
+
 echo "Building api"
 (
 	cd api
