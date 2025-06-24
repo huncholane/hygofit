@@ -1,8 +1,10 @@
 #!/bin/bash
+echo "Entered post build"
 set -e
 source buildspec/global.sh
 
 aws s3 sync frontend/out s3://hygofit.frontend --delete >/dev/null
+echo "Deployed frontend"
 
 ls "$PEM_FILE"
 
