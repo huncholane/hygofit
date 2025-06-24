@@ -23,6 +23,7 @@ echo "Successfully built api"
 echo "Building frontend"
 (
 	cd frontend
+	cp $ENV_FILE .env
 	npm i
 	npm run build
 )
