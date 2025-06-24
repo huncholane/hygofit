@@ -10,7 +10,7 @@ wait_for_port_free() {
 }
 
 start() {
-	go run main.go &
+	sh run main &
 }
 
 restart() {
