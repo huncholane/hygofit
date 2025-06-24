@@ -16,7 +16,7 @@ fi
 echo "Building api"
 (
 	cd api
-	go build main.go
+	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o hygofit main.go
 )
 echo "Successfully built api"
 
