@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+source buildspec/global.sh
 
 echo "Building api"
 (
