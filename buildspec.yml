@@ -24,7 +24,3 @@ cache:
   paths:
     - frontend/node_modules
     - frontend/.next
-
-artifacts:
-  paths:
-    - rustlib/turbobid/target/release/turbobid
