@@ -2,8 +2,10 @@
 
 set -a
 if [ -s "$ENV_FILE" ]; then
+	echo "Using $ENV_FILE"
 	source $ENV_FILE
 else
+	echo "Resorting to .env"
 	source .env
 fi
 set +a
@@ -11,7 +13,6 @@ set +a
 DATABASE_ROOT="postgresql://$DATABASE_USER:$DATABASE_PASSWORD@$DATABASE_HOST:$DATABASE_PORT"
 DATABASE_URL="$DATABASE_ROOT/$DATABASE_TABLE"
 
-ls -la
 echo "Connecting to $DATABASE_URL"
 
 # Initializes the migration table
