@@ -1,30 +1,7 @@
 #!/bin/bash
-export NVM_PATH="$HOME/.nvm/nvm.sh"
 export PEM_FILE="/tmp/hygo.pem"
 export ENV_FILE=/tmp/hygofit.env
-export NODE_VERSION="20.16.0"
-export GO_VERSION="1.24.4"
 export SSH_OPT="StrictHostKeyChecking=no"
-
-# shellcheck source=/dev/null
-source_env() {
-	if [ -s "$ENV_FILE" ]; then
-		echo "Loading environment variables"
-		cat "$ENV_FILE"
-		set -a
-		source "$ENV_FILE"
-		set +a
-	fi
-}
-
-# shellcheck source=/dev/null
-source_nvm() {
-	[ -s "$NVM_PATH" ] && source "$NVM_PATH"
-}
-
-export_go() {
-	export PATH="/usr/local/go/bin:$PATH"
-}
 
 dossh() {
 	ssh -o "$SSH_OPT" -i "$PEM_FILE" "ubuntu@$EC2" "$1"
