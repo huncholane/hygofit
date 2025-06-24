@@ -26,6 +26,7 @@ cache:
     - /usr/bin/go
     - frontend/node_modules
     - ~/.nvm
+    - frontend/.next
 
 artifacts:
   paths:
