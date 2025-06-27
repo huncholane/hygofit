@@ -1,5 +1,4 @@
 import { Block } from "@/lib/models";
-import TimerComponent from "./TimerComponent";
 
 type Props = {
   block: Block
@@ -19,7 +18,6 @@ export default function BlockComponent({ block }: Props) {
           <div key={si} className="flex items-center gap-2">
             <span className="font-mono">Set {si + 1}:</span>
             <span>[{set.filter(x => x != null).join(', ')}]</span>
-            {block.timed && set[0] && <TimerComponent seconds={set[0]} />}
           </div>
         ))}
       </div>

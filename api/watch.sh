@@ -8,7 +8,7 @@ wait_for_port_free() {
 	done
 }
 start() {
-	go run main.go &
+	go run cmd/server/server.go &
 }
 restart() {
 	stop
