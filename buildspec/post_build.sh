@@ -2,7 +2,7 @@
 set -e
 source buildspec/global.sh
 
-echo "Udating the frontend"
+echo "Updating the frontend"
 aws s3 sync frontend/out s3://hygofit.frontend --delete >/dev/null
 aws cloudfront create-invalidation \
 	--distribution-id EW5HTNW91HAGP \

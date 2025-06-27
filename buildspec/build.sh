@@ -17,8 +17,6 @@ echo "Building lambda function"
 (
 	cp $ENV_FILE api/.env
 	cd api
-	ls
-	ls cmd
 	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build ./cmd/lambda/lambda.go
 	zip lambda.zip lambda .env
 )
