@@ -11,11 +11,9 @@ export function useStorage<T>(
     if (stored) {
       try {
         setVal(JSON.parse(stored))
-      } catch {
-        setVal(default_val)
-      }
+      } catch { }
     }
-  }, [])
+  }, [item])
 
   const setStorage: Dispatch<SetStateAction<T>> = (newVal) => {
     setVal((prev) => {
