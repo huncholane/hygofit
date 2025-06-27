@@ -1,26 +1,47 @@
-import { Block } from "@/lib/models";
+"use client"
+import { Block } from "@/lib/models"
+import { useState } from "react"
 
 type Props = {
   block: Block
 }
 
 export default function BlockComponent({ block }: Props) {
-  return (
-    <div className="p-4 my-2 border rounded-lg shadow">
-      <h2 className="text-xl font-bold">{block.name}</h2>
-      <a className="text-blue-600 underline" href={block.url} target="_blank">View Exercise</a>
-      <p>Target: {block.target}</p>
-      <p>Equipment: {block.equipment}</p>
-      <p>Difficulty: {block.difficulty}</p>
+  const [completedSets, setCompletedSets] = useState<boolean[]>(
+    new Array(block.sets.length).fill(false)
+  )
 
-      <div className="mt-2 space-y-1">
-        {block.sets.map((set: number[], si: number) => (
-          <div key={si} className="flex items-center gap-2">
-            <span className="font-mono">Set {si + 1}:</span>
-            <span>[{set.filter(x => x != null).join(', ')}]</span>
-          </div>
+  const toggleSet = (index: number) => {
+    setCompletedSets(prev => {
+      const updated = [...prev]
+      updated[index] = !updated[index]
+      return updated
+    })
+  }
+
+  return (
+    <div className="p-4 my-4 border rounded-xl shadow-md bg-orange-50 border-orange-300">
+      <h2 className="text-2xl font-bold text-orange-700">{block.name}</h2>
+      <a className="text-orange-600 underline" href={block.url} target="_blank">View Exercise</a>
+      <p className="text-sm text-orange-800">Target: {block.target}</p>
+      <p className="text-sm text-orange-800">Equipment: {block.equipment}</p>
+      <p className="text-sm text-orange-800">Difficulty: {block.difficulty}</p>
+
+      <div className="mt-4 space-y-2">
+        {block.sets.map((set, i) => (
+          <button
+            key={i}
+            onClick={() => toggleSet(i)}
+            className={`w-full flex items-center justify-between px-4 py-2 rounded-lg transition
+              ${completedSets[i] ? "bg-orange-500 text-white" : "bg-white border border-orange-300 text-orange-700"}
+            `}
+          >
+            <span className="font-semibold">Set {i + 1}</span>
+            <span className="font-mono">[{set.filter(x => x != null).join(', ')}]</span>
+          </button>
         ))}
       </div>
     </div>
   )
 }
+
