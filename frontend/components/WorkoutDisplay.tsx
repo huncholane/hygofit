@@ -11,7 +11,7 @@ export default function WorkoutPage() {
   async function refreshWorkout() {
     const newWorkout = await genWorkout(options)
     if (newWorkout) {
-      setWorkout(newWorkout as Block[])
+      setWorkout(newWorkout)
     }
   }
 
