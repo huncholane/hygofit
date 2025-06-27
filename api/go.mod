@@ -3,6 +3,8 @@ module github.com/huncholane/hygofit/api
 go 1.24
 
 require (
+	github.com/aws/aws-lambda-go v1.49.0
+	github.com/awslabs/aws-lambda-go-api-proxy v0.16.2
 	github.com/gin-contrib/cors v1.7.6
 	github.com/gin-gonic/gin v1.10.1
 	github.com/huncholane/golib v0.0.0-20250623205540-16bf6fc36955

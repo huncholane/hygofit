@@ -13,12 +13,14 @@ else
 	echo "Next build was not cached"
 fi
 
-echo "Building api"
+echo "Building lambda function"
 (
+	cp $ENV_FILE api/.env
 	cd api
-	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build main.go
+	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build ./cmd/lambda/lambda.go
+	zip lambda.zip lambda .env
 )
-echo "Successfully built api"
+echo "Successfully built lambda function"
 
 echo "Building frontend"
 (

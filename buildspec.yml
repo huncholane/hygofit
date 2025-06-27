@@ -24,3 +24,5 @@ cache:
   paths:
     - frontend/node_modules/**/*
     - frontend/.next/**/*
+    - /root/go/pkg/mod/**/*
+    - /root/.cache/go-build/**/*
