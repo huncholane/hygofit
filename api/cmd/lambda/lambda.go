@@ -11,7 +11,7 @@ import (
 	"github.com/huncholane/hygofit/api/routes"
 )
 
-var ginLambda *ginadapter.GinLambda
+var ginLambda *ginadapter.GinLambdaV2
 
 func init() {
 	globals.Init()
@@ -19,7 +19,7 @@ func init() {
 	r.Use(func(c *gin.Context) {
 		fmt.Println("PATH:", c.Request.URL.Path)
 	})
-	ginLambda = ginadapter.New(r)
+	ginLambda = ginadapter.NewV2(r)
 }
 
 func main() {
