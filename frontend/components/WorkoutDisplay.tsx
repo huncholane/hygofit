@@ -18,10 +18,8 @@ export default function WorkoutPage() {
   return (
     <div className="p-4 space-y-4">
       <div className="flex space-x-4">
-        <Link href="/">
-          <a className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
-            New Workout
-          </a>
+        <Link href="/" className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+          New Workout
         </Link>
         <button
           onClick={refreshWorkout}
