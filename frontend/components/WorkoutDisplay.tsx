@@ -1,13 +1,12 @@
 import BlockComponent from "./BlockComponent"
 import { useStorage } from "@/lib/utils"
 import { Block, defaultOptions, Options } from "@/lib/models"
-import { useRouter } from "next/navigation"
 import { genWorkout } from "@/lib/api"
+import Link from "next/link"
 
 export default function WorkoutPage() {
   const [workout, setWorkout] = useStorage<Block[]>("lastWorkout", [])
   const [options,] = useStorage<Options>("lastOptions", defaultOptions)
-  const router = useRouter()
 
   async function refreshWorkout() {
     const newWorkout = await genWorkout(options)
@@ -19,12 +18,11 @@ export default function WorkoutPage() {
   return (
     <div className="p-4 space-y-4">
       <div className="flex space-x-4">
-        <a
-          href="/"
-          className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
-        >
-          New Workout
-        </a>
+        <Link href="/">
+          <div className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+            New Workout
+          </div>
+        </Link>
         <button
           onClick={refreshWorkout}
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
