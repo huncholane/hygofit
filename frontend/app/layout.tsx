@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Hygofit",
-  description: "Generate workout plans.",
+  description: "Generate best workout plans.",
 };
 
 export default function RootLayout({

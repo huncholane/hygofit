@@ -19,9 +19,9 @@ export default function WorkoutPage() {
     <div className="p-4 space-y-4">
       <div className="flex space-x-4">
         <Link href="/">
-          <div className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
+          <a className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">
             New Workout
-          </div>
+          </a>
         </Link>
         <button
           onClick={refreshWorkout}
