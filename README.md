@@ -13,3 +13,22 @@ cloudfront distribution which avoids cors issues. The api and frontend are built
 and a custom alpine docker build image containing psql, golang, node, npm, aws-cli, and zip.
 During the postbuild step, the frontend and lambda s3 buckets are synchronized and
 the cache is invalidated for cloudfront.
+
+## Environment Variables
+
+### API
+
+- **DATABASE_URL:** The postgres url including database name
+- **ALLOWED_HOSTS:** A comma separated list of hosts to allow for cors. Make sure to include http or https
+
+### Frontend
+
+- **NEXT_PUBLIC_API_URL:** The api root url
+
+### Databse
+
+- **DATABASE_HOST:** The postgres database host
+- **DATABASE_USER:** User to login with on postgres
+- **DATABASE_PASSWORD:** Login password for postgres
+- **DATABASE_TABLE:** Table used for migrations
+- **DATABASE_PORT:** The port of the postgres instance
