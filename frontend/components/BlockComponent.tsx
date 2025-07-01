@@ -24,15 +24,18 @@ export default function BlockComponent({ block }: Props) {
       <h2 className="text-2xl font-bold text-orange-700">{block.name}</h2>
       <a className="text-orange-600 underline" href={block.url} target="_blank">View Exercise</a>
       <p className="text-sm text-orange-800">Target: {block.target}</p>
-      <p className="text-sm text-orange-800">Equipment: {block.equipment}</p>
+      <p className="text-sm text-orange-800">
+        Equipment: {block.equipment}{block.equipment === "Bodyweight" ? " / Assisted" : ""}
+      </p>
       <p className="text-sm text-orange-800">Difficulty: {block.difficulty}</p>
+      <p className="text-sm text-orange-800">Views: {block.views.toLocaleString()}</p>
 
       <div className="mt-4 space-y-2">
         {block.sets.map((set, i) => (
           <button
             key={i}
             onClick={() => toggleSet(i)}
-            className={`w-full flex items-center justify-between px-4 py-2 rounded-lg transition
+            className={`w-full flex items-center justify-between px-4 py-2 rounded-lg transition hover:cursor-pointer hover:bg-amber-300
               ${completedSets[i] ? "bg-orange-500 text-white" : "bg-white border border-orange-300 text-orange-700"}
             `}
           >

@@ -25,6 +25,7 @@ func GetWorkout(c *gin.Context) {
 		return
 	}
 	exercises = exercises.Shuffle()
+	log.Printf("%d Exercises: %v", len(exercises), exercises)
 	blocks, err := models.BlockStatementFromContext(c).QueryBlocks()
 	if err != nil {
 		log.Printf("unable to query blocks for workout: %v", err)

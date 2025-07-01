@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+	"log"
 	"math/rand/v2"
 
 	"github.com/gin-gonic/gin"
@@ -85,7 +86,7 @@ func (es ExerciseStatement) QueryExercises() (Exercises, error) {
 				experience.name AS experience,
 				exercise.views,
 				exercise.url,
-				ROW_NUMBER() OVER (PARTITION BY muscle.name ORDER BY exercise.views DESC) AS rn
+				ROW_NUMBER() OVER (PARTITION BY muscle.name ORDER BY RANDOM()) AS rn
 			FROM exercise
 			LEFT JOIN muscle ON target_id=muscle.id 
 			LEFT JOIN focus ON exercise.focus_id=focus.id
@@ -112,12 +113,14 @@ func (es ExerciseStatement) QueryExercises() (Exercises, error) {
 	FROM numbered
 	`
 	if es.BlocksPerTarget > 0 {
+		log.Printf("Ordering by random")
 		stmt += fmt.Sprintf("\nWHERE rn <= %d\n", es.BlocksPerTarget)
 	}
 	stmt += es.OrderBy.SqlStmt()
 	if es.Limit > 0 {
 		stmt += fmt.Sprintf("\nLIMIT %d\n", es.Limit)
 	}
+	log.Printf("%s", stmt)
 
 	err := globals.DB.Select(&exercises, stmt, es.MinViews)
 	return exercises, err
