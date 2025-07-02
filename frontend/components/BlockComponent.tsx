@@ -40,7 +40,7 @@ export default function BlockComponent({ block }: Props) {
             `}
           >
             <span className="font-semibold">Set {i + 1}</span>
-            <span className="font-mono">[{set.filter(x => x != null).join(', ')}]</span>
+            <span className="font-mono">[{set.map(x => x ?? "failure").join(', ')}]</span>
           </button>
         ))}
       </div>
